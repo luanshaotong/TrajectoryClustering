@@ -13,3 +13,5 @@ hs_err_pid*
 
 # Ignore changes in Dataset
 CVRR Dataset/
+
+bin/
