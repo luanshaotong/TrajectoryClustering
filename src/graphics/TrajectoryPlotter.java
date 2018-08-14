@@ -103,7 +103,7 @@ public class TrajectoryPlotter {
 		try {
 			String chartPath = GetPropertyValues.getPropValues("ChartPath");
 			//String chartFilename = chartPath + "\\" + chartName + ".jpg";
-			String chartFilename = "C:\\GraphClusterOutput\\" + chartName + ".png";
+			String chartFilename = "GraphClusterOutput\\" + chartName + ".png";
 			
 			ChartUtilities.saveChartAsPNG(new File(chartFilename), chart, 2000, 1000);
 			} catch (IOException e) {
@@ -169,7 +169,7 @@ public class TrajectoryPlotter {
 				try {
 					String chartPath = GetPropertyValues.getPropValues("ChartPath");
 					//String chartFilename = chartPath + "\\" + chartName + ".jpg";
-					String chartFilename = "C:\\GraphClusterOutput\\" + chartName + ".jpg";
+					String chartFilename = "GraphClusterOutput\\" + chartName + ".jpg";
 					ChartUtilities.saveChartAsJPEG(new File(chartFilename), chart, 2000, 1000);
 					} catch (IOException e) {
 					System.err.println("Problem occurred creating chart: " + e.getMessage());
@@ -197,7 +197,35 @@ public class TrajectoryPlotter {
 		try {
 			String chartPath = GetPropertyValues.getPropValues("ChartPath");
 			String chartFilename = chartPath + "\\" + chartName + ".jpg";
-			//String chartFilename = "C:\\GraphClusterOutput\\" + chartName + ".jpg";
+			//String chartFilename = "GraphClusterOutput\\" + chartName + ".jpg";
+			ChartUtilities.saveChartAsJPEG(new File(chartFilename), chart, 2000, 1000);
+			} catch (IOException e) {
+				System.err.println("Problem occurred creating chart: " + e.getMessage());
+			}
+		
+	}
+	
+	public static void drawAllTrajectories(Trajectory t)
+	{
+		String chartName = "TrajectoryGraph"+t.getTrajectoryId();
+		XYSeries series = new XYSeries(chartName);
+		for(Point p:t.elements)
+		{
+			series.add(p.getX(),p.getY());
+		}
+		
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		dataset.addSeries(series);
+		
+		//Generate the graph
+		JFreeChart chart = ChartFactory.createXYLineChart(chartName, "x", "y", dataset, 
+				PlotOrientation.VERTICAL, true, true, false);
+	
+		
+		try {
+			String chartPath = GetPropertyValues.getPropValues("ChartPath");
+			String chartFilename = chartPath + "\\" + chartName + ".jpg";
+			//String chartFilename = "GraphClusterOutput\\" + chartName + ".jpg";
 			ChartUtilities.saveChartAsJPEG(new File(chartFilename), chart, 2000, 1000);
 			} catch (IOException e) {
 				System.err.println("Problem occurred creating chart: " + e.getMessage());

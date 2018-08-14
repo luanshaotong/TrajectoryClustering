@@ -93,7 +93,6 @@ public class Traclus {
 		//for Traclus clustering approach, cluster over segments
 		clusterOfTrajectories = clusterSegments(segmentsCompleteSet, eNeighborhoodParameter, minLins, cardinalityOfClusters);
 		
-
 		long stopTime = System.nanoTime();
 		double finalTimeInSeconds = (stopTime - startTime)/1000000000.0;
 		System.out.println("Clustering Execution time in seconds: " + (finalTimeInSeconds));
@@ -368,6 +367,7 @@ public class Traclus {
 	//Input Set of Trajectories
 	public ArrayList<Segment> partition(ArrayList<Trajectory> trajectories)
 	{
+		System.out.println("start segmentation...");
 		ArrayList<Segment> setOfSegments = new ArrayList<Segment>();
 		
 		for(Trajectory t:trajectories)
@@ -381,7 +381,8 @@ public class Traclus {
 			//For Douglas-Peucker Partition of trajectory into segments
 			setOfSegments.addAll(t.divideTrajectoryInSegmentsDouglasPeucker(epsilonDouglasPeucker, fixedNumOfTrajectoryPartitionsDouglas));
 		}
-		
+
+		System.out.println("end segmentation.");
 		return setOfSegments;
 	}
 	
@@ -1139,6 +1140,7 @@ public class Traclus {
 		
 		for(Segment s: setOfSegments)
 		{
+			System.out.println("now id:"+clusterId);
 			if(!s.isClassified())
 			{
 				//To compute eNeighboorhood is a hard part

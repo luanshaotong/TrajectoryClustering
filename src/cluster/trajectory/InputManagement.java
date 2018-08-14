@@ -460,7 +460,7 @@ public class InputManagement {
 					
 				}catch (FileNotFoundException e) {
 					System.err.println("File does not exist: " + filename);
-					//e.printStackTrace();
+					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -509,7 +509,7 @@ public class InputManagement {
 	
 	public static ArrayList<Trajectory> generateTestTrajectoriesFromDataSetAnimalsStarkey(String animalCharacterParam, int yearParam, float MDLPrecision)
 	{
-		String starkeyTrajectoryFile = "C:\\Users\\Ivan\\Documents\\Unimelb\\Big Project\\My work\\Datasets\\Traclus original trajectories\\Animal Tracking\\Starkey_OR_Main_Telemetry_1993-1996_Data.txt";
+		String starkeyTrajectoryFile = "C:\\D\\lessons\\ÑÐÒ»\\kenkyuu\\deer\\Starkey_OR_Main_Telemetry_1993-1996_Data.txt";
 		
 		//Set of trajectories to return
 		ArrayList<Trajectory> testTrajectories = new ArrayList<Trajectory>();
@@ -563,7 +563,7 @@ public class InputManagement {
 				d.setHours(Integer.parseInt(gmtTime.substring(1,3)));
 				d.setMinutes(Integer.parseInt(gmtTime.substring(4,6)));
 				d.setSeconds(Integer.parseInt(gmtTime.substring(7,9)));
-				//Set timezone in GMT, now is in AUstralian time, this is an Error
+				//Set timezone in GMT, now is in Australian time, this is an Error
 				
 				float longitudeF = Float.parseFloat(utmPositionEast);
 				float latitudeF = Float.parseFloat(utmPositionNorth);
@@ -575,7 +575,8 @@ public class InputManagement {
 				tr0p1.setNorthing(true);
 				
 					//If is the specie of animal and the year we want, add
-					if(year==yearParam && animalCharacterParam.equals(specie.substring(1, 2)))
+					if((yearParam == 0 || year==yearParam) 
+						&& (specie.equals("ALL")|| animalCharacterParam.equals(specie.substring(1, 2))))
 					{
 						boolean trajectoryForAnimalExists = false;
 						int indexAnimalTrajectory = 0;
@@ -593,6 +594,8 @@ public class InputManagement {
 							testTrajectories.get(indexAnimalTrajectory).getPoints().add(tr0p1);
 						}else{
 							ArrayList<Point> newAnimalPointForTrajectory = new ArrayList<Point>();
+							if (tr0p1 ==null) 
+								System.out.println("null");
 							newAnimalPointForTrajectory.add(tr0p1);
 							int newTrajectoryID = testTrajectories.size()+1;
 							Trajectory newAnimalTrajectory = new Trajectory(newTrajectoryID, newAnimalPointForTrajectory);
@@ -807,4 +810,5 @@ public class InputManagement {
 		return testTrajectories;
 	}
 
+	
 }

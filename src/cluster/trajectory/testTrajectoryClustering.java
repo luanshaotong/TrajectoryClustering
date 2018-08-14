@@ -44,10 +44,10 @@ public class testTrajectoryClustering {
 	public static void main(String[] args) {
 		try {
 			
-			ClusteringMethod method = ClusteringMethod.KMEANS_EUCLIDEAN;
+			ClusteringMethod method = ClusteringMethod.TRACLUS;
 			//ClusteringMethod method = ClusteringMethod.KMEANS_EUCLIDEAN;
 			//starkeyElk93Experiment(method);
-			boolean plotTrajectories = false;
+			boolean plotTrajectories = true;
 			boolean simplifyTrajectories = true;
 			boolean printDetailedClusters = true;
 			boolean printOutputZayFile = false;
@@ -59,15 +59,15 @@ public class testTrajectoryClustering {
 			boolean calculateSilhouetteCoefficient = false;
 			boolean normalize = false;
 			
-			SegmentationMethod simplificationMethod = SegmentationMethod.douglasPeucker;
-			TrajectoryDatasets trajectoryDataset = TrajectoryDatasets.GEOLIFE;
+			SegmentationMethod simplificationMethod = SegmentationMethod.traclus;
+			TrajectoryDatasets trajectoryDataset = TrajectoryDatasets.DEER;
 			int numberOfPartitionsPerTrajectory = 8; //normal value = 8 //9 for tests with zay
 			
 			//For big data Experiment
 			boolean veryBigData = false;
 			int numTrajectoryBigDataset = 500;
 			
-			boolean runMultipleExperiments = true;
+			boolean runMultipleExperiments = false;
 			int numberOfExperiments = 5;
 			
 			if(runMultipleExperiments)
@@ -170,6 +170,7 @@ public class testTrajectoryClustering {
 			workingTrajectories = getTrajectories(simplifyTrajectories, fixNumberPartitionSegment, dataset, trajectoryDataset, originalCompleteTrajectories);
 			break;
 		case CROSS:
+		case DEER:
 		case LABOMNI:
 			workingTrajectories = getTrajectories(simplifyTrajectories, fixNumberPartitionSegment, dataset, trajectoryDataset, null);
 			break;
@@ -186,6 +187,7 @@ public class testTrajectoryClustering {
 				originalCompleteTrajectories = filterAusSignDataset(workingTrajectories, originalCompleteTrajectories);
 				break;
 			case CROSS:
+			case DEER:
 			case LABOMNI:
 				originalCompleteTrajectories = adjustCompleteTrajectoriesToSimplifiedIndex(workingTrajectories, originalCompleteTrajectories, representedOriginalTraj);
 			default:
@@ -1056,6 +1058,9 @@ public class testTrajectoryClustering {
 				workingTrajectories = InputManagement.generateTestTrajectoriesFromDataSetPendigit();
 			}
 			break;
+		case DEER:
+			workingTrajectories = InputManagement.generateTestTrajectoriesFromDataSetAnimalsStarkey("E", 0, 0.000001f);
+			break;
 		default:
 			workingTrajectories = InputManagement.generateTestTrajectoriesFromDataSetCVRR(dataset, simplifyTrajectories, null);
 			break;
@@ -1126,6 +1131,8 @@ public class testTrajectoryClustering {
 		case GEOLIFE:
 			dataset = "GEOLIFE_Dataset";
 			break;
+		case DEER:
+			dataset = "STARKEY_ANIMALS_Dataset";
 		default:
 			dataset = "CVRR_Dataset_Labomni_Path";
 			break;

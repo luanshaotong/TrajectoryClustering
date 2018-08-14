@@ -166,7 +166,7 @@ public class Segment extends cluster.trajectory.Clusterable {
 		//Recheck this, why do I need it?
 		if(cosAngle!=1)
 		{
-		cosAngle = Math.nextDown(cosAngle);
+		cosAngle = Math.nextUp(cosAngle);
 		}
 		
 		//Verify that a negative cosine means trajectories go in opposite direction

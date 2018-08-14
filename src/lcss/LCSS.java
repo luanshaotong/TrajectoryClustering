@@ -227,6 +227,7 @@ public class LCSS {
                     equalsLongitude = true;
                 }
 
+                //suspect 
                 if (equalsLatitude && equalsLongitude) {
                     lengths[i + 1][j + 1] = lengths[i][j] + 1;
                 } else {

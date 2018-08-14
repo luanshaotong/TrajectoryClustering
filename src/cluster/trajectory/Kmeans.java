@@ -17,9 +17,8 @@ public class Kmeans {
 	
 	public static Cluster[] execute(List<? extends Clusterable> trajectoryList, int k)
 	{	
-		KMeansClusterer kmeaner = new KMeansClusterer();		
-		Cluster[] km = kmeaner.cluster(trajectoryList, k);
-		
+		KMeansClusterer kmeaner = new KMeansClusterer();
+		Cluster[] km = kmeaner.cluster((List<Clusterable>) trajectoryList, k);
 		return km;
 	}
 	
